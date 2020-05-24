@@ -11,7 +11,7 @@ namespace KnightsTour
 {
 
     // TODO are tests required? 
-    class KnightsTour
+    class Program
     {
         static void Main(string[] args)
         {
