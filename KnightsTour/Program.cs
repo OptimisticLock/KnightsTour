@@ -24,7 +24,16 @@ namespace KnightsTour
             return matrix;
         }
 
-        
+        public void write()
+        {
+            for (int y = 0; y < Matrix.height; y++)
+            {
+                for (int x = 0; x < Matrix.width; x++)
+                    Console.Write(matrix[x, y] == 0 ? "  ." : $"{matrix[x, y],3}");
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
     }
 
     // TODO are tests required? 
@@ -34,17 +43,9 @@ namespace KnightsTour
         {
 
             Console.WriteLine("Start");
+            Matrix.sample().write();
+            Console.WriteLine("End");
 
-            int[,] matrix = Matrix.sample().matrix;
-
-
-            for (int y = 0; y < Matrix.height; y++)
-            {
-                for (int x = 0; x < Matrix.width; x++)
-                    Console.Write(matrix[x, y] == 0 ? "  ." : $"{matrix[x, y], 3}");           
-                Console.WriteLine();
-            }
-            Console.WriteLine();
         }
     }
 }
