@@ -9,43 +9,62 @@ using System;
 
 namespace KnightsTour
 {
-    class Matrix
+    class Board
     {
         public const int width = 8;
         public const int height = 8;
         public int[,] matrix = new int[8, 8];
+        private int visits = 0;
 
-        public static Matrix sample()
+        public static Board sample()
         {
-            Matrix matrix = new Matrix();
-            matrix.matrix[1, 1] = 1;
-            matrix.matrix[2, 2] = 2;
-            matrix.matrix[3, 3] = 33;
-            return matrix;
+            Board board = new Board();
+            board.matrix[1, 1] = 1;
+            board.matrix[2, 2] = 2;
+            board.matrix[3, 3] = 33;
+            board.visit(0, 0);
+            return board;
         }
 
         public void write()
         {
-            for (int y = 0; y < Matrix.height; y++)
+            for (int y = 0; y < Board.height; y++)
             {
-                for (int x = 0; x < Matrix.width; x++)
-                    Console.Write(matrix[x, y] == 0 ? "  ." : $"{matrix[x, y],3}");
+                for (int x = 0; x < Board.width; x++)
+                {
+                    int value = matrix[x, y];
+                    Console.Write(value == 0 ? "  ." : $"{value, 3}");
+                }
                 Console.WriteLine();
             }
             Console.WriteLine();
         }
+
+        public void solve()
+        {
+            visit(0, 0);
+        }
+
+        public void visit(int x, int y)
+        {
+            if (matrix[x, y] > 0)
+                throw new Exception("$Already visited cell ({x},{y})"); // TODO which Exception?
+
+            matrix[x, y] = ++visits;
+        }
     }
+
+
+    //================================================================
 
     // TODO are tests required? 
     class Program
     {
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Start");
-            Matrix.sample().write();
+            Console.WriteLine("Start3");
+            Board.sample().write();
             Console.WriteLine("End");
-
         }
     }
 }
