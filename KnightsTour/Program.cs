@@ -30,7 +30,7 @@ namespace KnightsTour
 
         public override string ToString()
         {
-            return base.ToString() + ": (" + x + ", " + y + ")";
+            return $"{base.ToString()}: ({x},{y})"; 
         }
     }
 
@@ -62,7 +62,7 @@ namespace KnightsTour
         {
             int x = point.x;
             int y = point.y;
-            return x >= 0 && y >= 0 && x < width && y < height && matrix[y, x] == 0;
+            return x >= 0 && y >= 0 && x < width && y < height && matrix[x, y] == 0;
         }
 
         //public static Board sample()
@@ -109,6 +109,12 @@ namespace KnightsTour
             // TODO: offset, not Point
             var knightMoves = new KnightMove[]
             {
+                new KnightMove(dx:-2, dy:-1),
+                new KnightMove(dx:-1, dy:-2),
+                new KnightMove(dx:-1, dy:2),
+                new KnightMove(dx:-2, dy:1),
+                new KnightMove(dx:1, dy:-2),
+                new KnightMove(dx:2, dy:-1),
                 new KnightMove(dx:1, dy:2),
                 new KnightMove(dx:2, dy:1)
             };
@@ -127,14 +133,16 @@ namespace KnightsTour
         
         public bool visit(Point point)
         {
-            Console.WriteLine("$Visiting cell ({x},{y})");
             int x = point.x;
             int y = point.y;
+
+            Console.WriteLine($"Visit # {visits} cell ({x},{y})");
+
 
             // TODO x,y or y,x?
 
             if (matrix[x, y] > 0)
-                throw new Exception("$Already visited cell ({x},{y})"); // TODO which Exception?
+                throw new Exception($"Already visited cell ({x},{y})"); // TODO which Exception?
 
             matrix[x, y] = ++visits;
             return false;
