@@ -6,6 +6,9 @@
 // Squirrel & Cull: https://github.com/douglassquirrel/warnsdorff/blob/master/5_Squirrel96.pdf
 
 using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Numerics;
 
 namespace KnightsTour
 {
@@ -15,6 +18,11 @@ namespace KnightsTour
         public const int height = 8;
         public int[,] matrix = new int[8, 8];
         private int visits = 0;
+
+        public bool isAvailable(int x, int y)
+        {
+            return x >= 0 && y >= 0 && x < width && y < height && matrix[y, x] == 0;
+        }
 
         public static Board sample()
         {
@@ -40,17 +48,51 @@ namespace KnightsTour
             Console.WriteLine();
         }
 
+
+        //-------------------------------------
         public void solve()
         {
-            visit(0, 0);
+            int x = 0;
+            int y = 0; 
+
+            while (true)
+            {
+                var nextMove = getNextMove(x, y);
+
+                if (nextMove == null)
+                    break;
+
+              
+            }
         }
 
-        public void visit(int x, int y)
+
+        public (int x, int y)? getNextMove(int x, int y)
         {
+            (int x, int y)[] knightMoves = new (int, int)[] { (1, 2), (2, 1)};
+
+            foreach (var move in knightMoves)
+            {
+                var nextX = x + move.x;
+                var nextY = y + move.y;
+
+                if (isAvailable(x, y))
+                    return (x, y);
+            }
+
+            return null;
+        }
+
+        
+        public bool visit(int x, int y)
+        {
+            Console.WriteLine("$Visiting cell ({x},{y})");
+
             if (matrix[x, y] > 0)
                 throw new Exception("$Already visited cell ({x},{y})"); // TODO which Exception?
 
             matrix[x, y] = ++visits;
+            return false;
         }
     }
 
@@ -62,7 +104,9 @@ namespace KnightsTour
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Start3");
+            Console.WriteLine("Start4");
+            Board board = new Board();
+            board.solve();
             Board.sample().write();
             Console.WriteLine("End");
         }
