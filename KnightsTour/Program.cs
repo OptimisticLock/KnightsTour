@@ -12,14 +12,14 @@ namespace KnightsTour
     //============================================
     public struct Point
     {
-        public int x { get; set;}
+        public int x { get; set; }
         public int y { get; set; }
 
 
         public Point(int x, int y) : this()
         {
             this.x = x;
-            this.y = y;          
+            this.y = y;
         }
 
         public static Point operator +(Point p, KnightMove m)
@@ -30,7 +30,7 @@ namespace KnightsTour
 
         public override string ToString()
         {
-            return $"{base.ToString()}: ({x},{y})"; 
+            return $"{base.ToString()}: ({x},{y})";
         }
     }
 
@@ -82,7 +82,7 @@ namespace KnightsTour
                 for (int x = 0; x < Board.width; x++)
                 {
                     int value = matrix[x, y];
-                    Console.Write(value == 0 ? "  ." : $"{value, 3}");
+                    Console.Write(value == 0 ? "  ." : $"{value,3}");
                 }
                 Console.WriteLine();
             }
@@ -130,8 +130,8 @@ namespace KnightsTour
             return null;
         }
 
-        
-        public bool visit(Point point)
+
+        public void visit(Point point)
         {
             int x = point.x;
             int y = point.y;
@@ -145,7 +145,6 @@ namespace KnightsTour
                 throw new Exception($"Already visited cell ({x},{y})"); // TODO which Exception?
 
             matrix[x, y] = ++visits;
-            return false;
         }
     }
 
